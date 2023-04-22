@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct Habit:Identifiable{
-    var id = UUID()
+struct Habit:Codable,Identifiable{
+    @DocumentID var id : String?
     var description: String
     var finished: Bool = false
-    var category: String = ""
-    var streakDays: Int
+    var streakDays: Int = 0
+    var latest : Data?
     
     private var unformatedDate = Date()
     private let dateFormatter = DateFormatter()
@@ -21,7 +22,6 @@ struct Habit:Identifiable{
         id: String? = nil, description: String, finished: Bool, category: String, streakDays: Int){
             self.description = description
             self.finished = finished
-            self.category = category
             self.streakDays = streakDays
         }
     
