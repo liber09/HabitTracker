@@ -6,16 +6,25 @@
 //
 
 import SwiftUI
+import Firebase
+
+
 
 struct ContentView: View {
+    @State var signedIn = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack{
+            Color(red: 98/256, green: 108/256, blue: 62/256)
+                            .ignoresSafeArea()
+                        
+                        if !signedIn {
+                            LoginView(signedIn: $signedIn)
+                        } else {
+                            
+
+                        }
         }
-        .padding()
     }
 }
 
