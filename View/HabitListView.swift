@@ -32,7 +32,7 @@ struct HabitListView: View {
                     Button(action: {
                         showingAddAlert = true
                     }) {
-                        Image(systemName: "square.and.pencil")
+                        Image(systemName: "plus.circle")
                             .foregroundColor(Color.white)
                             .padding(.leading)
                         Text("Add new habit")
@@ -41,12 +41,12 @@ struct HabitListView: View {
                             .foregroundColor(Color.white)
                             .padding([.top, .bottom, .trailing])
                     }
-                    .background(Color(red: 177/256, green: 112/256, blue: 54/256))
-                    .cornerRadius(40.0)
-                    .alert("Lägg till", isPresented: $showingAddAlert) {
-                        TextField("Lägg till", text: $newHabitDescription)
+                    .background(Color(red: 20/256, green: 200/256, blue: 20/256))
+                    .cornerRadius(20.0)
+                    .alert("Add habit", isPresented: $showingAddAlert) {
+                        TextField("Habit to track?", text: $newHabitDescription)
                         Button("Add", action: {
-                            habitList.saveToFirestore(description: newHabitDescription,finished: false, streakDays: 1)
+                            habitList.saveToFirestore(description: newHabitDescription,finished: false, streakDays: 0)
                             newHabitDescription = ""
                         })
                     }
