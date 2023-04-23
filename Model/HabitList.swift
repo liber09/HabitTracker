@@ -43,6 +43,7 @@ class HabitList : ObservableObject {
             
             do {
                  try habitRef.addDocument(from: habit)
+                habits.append(habit)
             } catch {
                 print("Error saving to db")
             }

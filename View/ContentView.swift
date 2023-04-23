@@ -11,7 +11,7 @@ import Firebase
 
 
 struct ContentView: View {
-    @State var signedIn = true
+    @State var signedIn = false
     
     var body: some View {
         ZStack{
