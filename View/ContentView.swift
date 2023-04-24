@@ -41,8 +41,8 @@ struct RowView: View {
             Button(action: {
                vm.toggle(habit: habit)
             }){
-                Image(systemName: habit.finished ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(Color.white)
+                Image(systemName: habit.finished ? "star.fill" : "star")
+                    .foregroundColor(Color.yellow)
             }
         }
     }
