@@ -31,7 +31,13 @@ class HabitList : ObservableObject {
         let habitRef = db.collection("users").document(user.uid).collection("habits")
         
         let id = habit.id!
-           habitRef.document(id).updateData(["finished" : !habit.finished])
+        var streakDays = habit.streakDays
+        if !habit.finished{
+            streakDays+=1
+        }else{
+            streakDays-=1
+        }
+        habitRef.document(id).updateData(["finished" : !habit.finished, "streakDays" : streakDays])
         
     }
     
