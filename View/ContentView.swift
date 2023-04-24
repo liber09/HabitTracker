@@ -7,17 +7,21 @@
 
 import SwiftUI
 import Firebase
+import FirebaseAuth
 
 
 
 struct ContentView: View {
+    func isUserLoggedIn() -> Bool {
+        return Auth.auth().currentUser != nil
+    }
     @State var signedIn = false
     
     var body: some View {
         ZStack{
             Color(red: 0/256, green: 0/256, blue: 0/256)
                             .ignoresSafeArea()
-                        
+                        signedIn = isUserLoggedIn()
                         if !signedIn {
                             LoginView(signedIn: $signedIn)
                         } else {
