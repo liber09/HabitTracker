@@ -14,7 +14,8 @@ struct LoginView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var showPassword: Bool = false
-    @Binding var signedIn : Bool
+    @State private var showAlert = false
+    //@Binding var signedIn : Bool
     var auth = Auth.auth()
     
     var isSignInButtonDisabled: Bool {
@@ -72,18 +73,15 @@ struct LoginView: View {
                 Button {
                     if(isValidEmail(email) && isValidPassword(password)){
                         signUp(email: email, password: password)
+                        Auth.auth().createUser(withEmail:  email, password: password){
+                            authResult, error in
+                            HabitListView()
+                        }
                     }else{
-                        let alert = UIAlertController(title: "Check info",
-                                                      message: "Please check email and password mus be at least 6 characters.",
-                                                      preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK",
-                                                      style: .default,
-                                                      handler: { _ in
-                             print("OK tap")
-                        }))
-
-                        // 3. Snow
-                        present(alert, animated: true, completion: nil)
+                        showAlert = true
+                        print("password is too short")
+                        //Todo Should show alert without having to click a buttn first
+                        
                     }
                 } label: {
                     Image(systemName: "person.crop.circle.badge.plus")
