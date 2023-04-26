@@ -19,5 +19,23 @@ struct HabitDetailsView: View {
 struct HabitDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         HabitDetailsView()
+        
+        func addRecurringReminder(title: String, at date: Date) -> String? {
+                let rem = EKReminder(eventStore: EventsCalendarManager.eventStore)
+                rem.title = title
+                rem.addAlarm(EKAlarm(relativeOffset: .zero))
+                rem.addRecurrenceRule(EKRecurrenceRule(recurrenceWith: .daily, interval: 1, end: .none))
+                rem.calendar = EventsCalendarManager.reminderCategory()
+                
+                let dueComponents = SharedFormatter.calendar.dateComponents([.hour,.minute,.day,.month,.year], from: date)
+                rem.dueDateComponents = dueComponents
+                do {
+                    try EventsCalendarManager.eventStore.save(rem, commit: true)
+                    return rem.calendarItemIdentifier
+                } catch {
+                    print(error)
+                }
+                return nil
+           }
     }
 }
