@@ -20,7 +20,7 @@ struct Habit : Codable, Identifiable{
             self.description = description
             self.finished = finished
             self.streakDays = streakDays
-            self.lastDayDone = Date().
+            self.lastDayDone = Date.now
         }
 }
 

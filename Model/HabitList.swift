@@ -32,7 +32,7 @@ class HabitList : ObservableObject {
         
         let id = habit.id!
         var streakDays = habit.streakDays
-        if !habit.finished{
+        if !habit.finished && Calendar.isDateInYesterday(habit.lastDayDone{
             streakDays+=1
         }else{
             streakDays-=1
