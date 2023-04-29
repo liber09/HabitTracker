@@ -46,7 +46,7 @@ struct HabitListView: View {
                     .alert("Add habit", isPresented: $showingAddAlert) {
                         TextField("Habit to track?", text: $newHabitDescription)
                         Button("Add", action: {
-                            habitList.saveToFirestore(description: newHabitDescription,finished: false, streakDays: 0, dateTracker: [],
+                            habitList.saveToFirestore(description: newHabitDescription,finished: false, streakDays: 0, finishedDates: [],
                             firstDate: Date())
                             newHabitDescription = ""
                         })
