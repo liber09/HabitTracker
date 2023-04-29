@@ -40,12 +40,15 @@ class HabitList : ObservableObject {
                             
                             if finishedDates.contains(where: { calendar.isDate($0.dateValue(), inSameDayAs: today) }){
                                 streakDays += 1}
+                            print(streakDays)
                             
                             
                             // Check if habit was done yesterday and compute streak
                             if let yesterday = calendar.date(byAdding: .day, value: -1, to: today),
                                finishedDates.contains(where: { calendar.isDate($0.dateValue(), inSameDayAs: yesterday) }) {
                                 streakDays += 1
+                                print("today")
+                                print(streakDays)
                                 
                                 // Continue checking back one day at a time
                                 var currentDay = yesterday
@@ -53,6 +56,7 @@ class HabitList : ObservableObject {
                                       finishedDates.contains(where: { calendar.isDate($0.dateValue(), inSameDayAs: previousDay) }) {
                                     streakDays += 1
                                     currentDay = previousDay
+                                    print(streakDays)
                                 }
                             }
                         }
@@ -60,6 +64,7 @@ class HabitList : ObservableObject {
                         print("Habit document does not exist")
                     }
                 }
+        print(streakDays)
         var finishedDates = habit.finishedDates
         if !habit.finished{
             finishedDates.append(Date())
