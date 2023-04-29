@@ -51,7 +51,8 @@ struct HabitListView: View {
                             newHabitDescription = ""
                         })
                     }
-                }.onAppear() {
+                }
+                .onAppear() {
                     habitList.listenToFirestore()
                 }
             }

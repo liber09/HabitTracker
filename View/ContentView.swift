@@ -45,5 +45,9 @@ struct RowView: View {
                     .foregroundColor(Color.yellow)
             }
         }
+        VStack{
+            Text("Finished " + String(habit.streakDays) + " days in a row")
+        }
+        
     }
 }
