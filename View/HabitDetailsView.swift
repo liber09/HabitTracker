@@ -20,6 +20,7 @@ struct HabitDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         HabitDetailsView()
         
+        /*
         func addRecurringReminder(title: String, at date: Date) -> String? {
                 let rem = EKReminder(eventStore: EventsCalendarManager.eventStore)
                 rem.title = title
@@ -37,5 +38,7 @@ struct HabitDetailsView_Previews: PreviewProvider {
                 }
                 return nil
            }
+         */
     }
+         
 }

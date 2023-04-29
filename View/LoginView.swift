@@ -80,7 +80,7 @@ struct LoginView: View {
                     }else{
                         showAlert = true
                         print("password is too short")
-                        //Todo Should show alert without having to click a buttn first
+                        //Todo Should show alert without having to click a button first
                         
                     }
                 } label: {
