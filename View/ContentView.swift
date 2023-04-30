@@ -19,6 +19,10 @@ struct ContentView: View {
     
     var body: some View {
         ZStack{
+            Text("Habit Tracker")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
             Color(red: 0/256, green: 0/256, blue: 0/256)
                             .ignoresSafeArea()
                         if !isUserLoggedIn() {
@@ -37,17 +41,15 @@ struct RowView: View {
     var body: some View {
         HStack {
             Text(habit.description)
+            Text("Streak: " + String(habit.streakDays) + " days")
             Spacer()
             Button(action: {
-               vm.toggle(habit: habit)
-            }){
+                vm.toggle(habit: habit)
+            }
+            ){
                 Image(systemName: habit.finished ? "star.fill" : "star")
                     .foregroundColor(Color.yellow)
             }
         }
-        VStack{
-            Text("Finished " + String(habit.streakDays) + " days in a row")
-        }
-        
     }
 }

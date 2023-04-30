@@ -30,25 +30,22 @@ class HabitList : ObservableObject {
     func toggle(habit: Habit) {
         guard let user = auth.currentUser else {return}
         var streakDays = 0
+        let today = Date()
+        let calendar = Calendar.current
         let habitRef = db.collection("users").document(user.uid).collection("habits").document(habit.id!)
         habitRef.getDocument { (document, error) in
                     if let document = document, document.exists {
                         let data = document.data()
                         if let finishedDates = data?["finishedDates"] as? [Timestamp] {
-                            let today = Date()
-                            let calendar = Calendar.current
-                            
+                            streakDays = data?["streakDays"] as! Int
                             if finishedDates.contains(where: { calendar.isDate($0.dateValue(), inSameDayAs: today) }){
                                 streakDays += 1}
-                            print(streakDays)
-                            
-                            
+                 
                             // Check if habit was done yesterday and compute streak
                             if let yesterday = calendar.date(byAdding: .day, value: -1, to: today),
                                finishedDates.contains(where: { calendar.isDate($0.dateValue(), inSameDayAs: yesterday) }) {
+                                streakDays = data?["streakDays"] as! Int
                                 streakDays += 1
-                                print("today")
-                                print(streakDays)
                                 
                                 // Continue checking back one day at a time
                                 var currentDay = yesterday
@@ -56,7 +53,6 @@ class HabitList : ObservableObject {
                                       finishedDates.contains(where: { calendar.isDate($0.dateValue(), inSameDayAs: previousDay) }) {
                                     streakDays += 1
                                     currentDay = previousDay
-                                    print(streakDays)
                                 }
                             }
                         }
@@ -64,22 +60,25 @@ class HabitList : ObservableObject {
                         print("Habit document does not exist")
                     }
                 }
-        print(streakDays)
+        print("before save " + String(streakDays))
         var finishedDates = habit.finishedDates
         if !habit.finished{
             finishedDates.append(Date())
         }else{
-            finishedDates.popLast()
+            if Calendar.current.isDateInToday(finishedDates.last!){
+                finishedDates.popLast()
+            }
         }
+        print(streakDays)
         let id = habit.id!
         habitRef.updateData(["finished" : !habit.finished, "streakDays" : streakDays,"finishedDates": finishedDates])
     }
     
-    func saveToFirestore(description: String, finished: Bool, streakDays: Int, finishedDates: [Date], firstDate: Date) {
+    func saveToFirestore(description: String, finished: Bool, streakDays: Int, finishedDates: [Date], lastDate: Date) {
             guard let user = auth.currentUser else {return}
             let habitRef = db.collection("users").document(user.uid).collection("habits")
             
-        let habit = Habit(description: description, finished: finished, streakDays: streakDays, finishedDates: finishedDates, firstDate: firstDate)
+        let habit = Habit(description: description, finished: finished, streakDays: streakDays, finishedDates: finishedDates, lastDate: lastDate)
             
             do {
                  try habitRef.addDocument(from: habit)

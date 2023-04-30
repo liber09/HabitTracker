@@ -14,18 +14,18 @@ struct Habit : Codable, Identifiable{
     var finished: Bool = false
     var streakDays: Int = 0
     var finishedDates : [Date]
-    var firstDate : Date
+    var lastDate: Date
     
     init(
         id: String? = nil, description: String, finished: Bool, streakDays: Int,
             finishedDates: [Date],
-            firstDate: Date){
+            lastDate: Date){
             self.id = id
             self.description = description
             self.finished = finished
             self.streakDays = streakDays
             self.finishedDates = finishedDates
-            self.firstDate = firstDate
+            self.lastDate = lastDate
         }
 }
 
