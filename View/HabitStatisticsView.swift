@@ -11,7 +11,7 @@ struct HabitStatisticsView: View {
     @StateObject var habitList = HabitList()
     
     var body: some View {
-        Text("Hejhopopo")
+        let filteredItems = habitList.habits.filter { $0.lastDate == Date() }
     }
     
     struct HabitStatisticsView_Previews: PreviewProvider {
