@@ -12,12 +12,14 @@ struct HabitStatisticsView: View {
     @State var goToStatistics = false
     
     var body: some View {
+        var filterChoosen = ""
         let filteredHabits = habitList.habits.filter { $0.lastDate == Date() }
         let filteredHabitsWeek = habitList.habits.filter { $0.lastDate == Date() }
         let filteredHabitsMonth = habitList.habits.filter { $0.lastDate == Date() }
         HStack{
             Button {
                 print("Show todays stats")
+                filterChoosen = "day"
             } label: {
                 Image(systemName: "calendar.circle")
                                     .font(.largeTitle)
@@ -36,6 +38,7 @@ struct HabitStatisticsView: View {
             .padding()
             Button {
                 print("Show weekly stats")
+                filterChoosen = "week"
             } label: {
                 Image(systemName: "calendar.circle")
                                     .font(.largeTitle)
@@ -54,6 +57,7 @@ struct HabitStatisticsView: View {
             .padding()
             Button {
                 print("Show monthly stats")
+                filterChoosen = "month"
             } label: {
                 Image(systemName: "calendar.circle")
                                     .font(.largeTitle)
@@ -74,11 +78,21 @@ struct HabitStatisticsView: View {
         
             VStack{
                 List {
-                    ForEach(filteredHabits) { habit in
-                        RowView(habit: habit, vm: habitList)
+                    if filterChoosen == "day"{
+                        ForEach(filteredHabits) { habit in
+                            RowView(habit: habit, vm: habitList)
+                        }
+                        
+                    }else if filterChoosen == "week"{
+                            ForEach(filteredHabitsWeek) { habit in
+                                RowView(habit: habit, vm: habitList)
+
+                    
                     }
                         
-                    }
+                    }else if filterChoosen == "month"{
+                        ForEach(filteredHabitsMonth) { habit in
+                            RowView(habit: habit, vm: habitList)
                 }
         }
         
