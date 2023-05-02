@@ -22,10 +22,10 @@ struct HabitStatisticsView: View {
                 filterChoosen = "day"
             } label: {
                 Image(systemName: "calendar.circle")
-                                    .font(.largeTitle)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.white)
-                                    .padding(.leading)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                    .padding(.leading)
                 Text("Today")
                     .font(.title2)
                     .bold()
@@ -41,10 +41,10 @@ struct HabitStatisticsView: View {
                 filterChoosen = "week"
             } label: {
                 Image(systemName: "calendar.circle")
-                                    .font(.largeTitle)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.white)
-                                    .padding(.leading)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                    .padding(.leading)
                 Text("Last week")
                     .font(.title2)
                     .bold()
@@ -60,10 +60,10 @@ struct HabitStatisticsView: View {
                 filterChoosen = "month"
             } label: {
                 Image(systemName: "calendar.circle")
-                                    .font(.largeTitle)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.white)
-                                    .padding(.leading)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.white)
+                    .padding(.leading)
                 Text("Last month")
                     .font(.title2)
                     .bold()
@@ -76,32 +76,29 @@ struct HabitStatisticsView: View {
             .padding()
         }
         
-            VStack{
-                List {
-                    if filterChoosen == "day"{
-                        ForEach(filteredHabits) { habit in
-                            RowView(habit: habit, vm: habitList)
-                        }
-                        
-                    }else if filterChoosen == "week"{
-                            ForEach(filteredHabitsWeek) { habit in
-                                RowView(habit: habit, vm: habitList)
-
-                    
+        VStack{
+            List {
+                if filterChoosen == "day"{
+                    ForEach(filteredHabits) { habit in
+                        RowView(habit: habit, vm: habitList)
                     }
+                    
+                }else if filterChoosen == "week"{
+                    ForEach(filteredHabitsWeek) { habit in
+                        RowView(habit: habit, vm: habitList)
                         
-                    }else if filterChoosen == "month"{
-                        ForEach(filteredHabitsMonth) { habit in
-                            RowView(habit: habit, vm: habitList)
+                        
+                    }
+                    
+                }else if filterChoosen == "month"{
+                    ForEach(filteredHabitsMonth) { habit in
+                        RowView(habit: habit, vm: habitList)
+                    }
                 }
+                
+            }
         }
         
-        }
-    
-    
-    struct HabitStatisticsView_Previews: PreviewProvider {
-        static var previews: some View {
-            HabitStatisticsView()
-        }
     }
+}
 
