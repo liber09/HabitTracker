@@ -16,6 +16,7 @@ struct ContentView: View {
         return Auth.auth().currentUser != nil
     }
     @State var signedIn = false
+    @State var goToStatistics = false
     
     var body: some View {
         ZStack{
@@ -28,7 +29,7 @@ struct ContentView: View {
                         if !isUserLoggedIn() {
                             LoginView()
                         } else {
-                            HabitListView()
+                            HabitListView( GoToStatisticsView: $goToStatistics)
                         }
         }
     }

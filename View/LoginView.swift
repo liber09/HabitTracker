@@ -15,6 +15,7 @@ struct LoginView: View {
     @State var password: String = ""
     @State var showPassword: Bool = false
     @State private var showAlert = false
+    @State var goToStatistics = false
     //@Binding var signedIn : Bool
     var auth = Auth.auth()
     
@@ -75,7 +76,7 @@ struct LoginView: View {
                         signUp(email: email, password: password)
                         Auth.auth().createUser(withEmail:  email, password: password){
                             authResult, error in
-                            HabitListView()
+                            HabitListView( GoToStatisticsView: $goToStatistics)
                         }
                     }else{
                         showAlert = true
