@@ -29,7 +29,10 @@ struct ContentView: View {
                         if !isUserLoggedIn() {
                             LoginView()
                         } else {
-                            HabitListView( GoToStatisticsView: $goToStatistics)
+                            
+                            HabitStatisticsView()
+                            /*
+                            HabitListView( GoToStatisticsView: $goToStatistics)*/
                         }
         }
     }

@@ -13,6 +13,8 @@ struct HabitStatisticsView: View {
     
     var body: some View {
         let filteredHabits = habitList.habits.filter { $0.lastDate == Date() }
+        let filteredHabitsWeek = habitList.habits.filter { $0.lastDate == Date() }
+        let filteredHabitsMonth = habitList.habits.filter { $0.lastDate == Date() }
         HStack{
             Button {
                 print("Show todays stats")
