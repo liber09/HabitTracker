@@ -13,8 +13,6 @@ struct HabitListView: View {
     @State var showingAddAlert = false
     @State var newHabitDescription = ""
     @Binding var GoToStatisticsView: Bool
-    var selectedHabit: Habit
-    var showingHabitDetails: Bool
     
     var body: some View {
         
@@ -27,22 +25,15 @@ struct HabitListView: View {
                         ForEach(habitList.habits) { habit in
                             RowView(habit: habit, vm: habitList)
                         }
-                        Button(action: {
-                                                     
-                                                            selectedHabit = habit
-                                                            showingHabitDetails = true
-                                                            
-                                                            NavigationStack(destination: HabitDetailsView(habit: habit))
-                                                            
-                                                        }){
-                                                            Label("Edit", systemImage: "pencil")
-                                                        }
-                        
                         .onDelete() { indexSet in
                             for index in indexSet {
                                 habitList.delete(index: index)
                             }
                         }
+                        .navigationTitle("Habits")
+                                                .foregroundColor(Color(red: 244/256, green:221/256,blue: 220/256))
+                                                .cornerRadius(10)
+                                                .colorMultiply(Color(red: 244/256, green:221/256,blue: 220/256))
                         
                     }
                     Spacer()
