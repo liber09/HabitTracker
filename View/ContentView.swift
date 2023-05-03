@@ -16,9 +16,10 @@ struct ContentView: View {
         return Auth.auth().currentUser != nil
     }
     @State var signedIn = false
-    @State var goToStatistics = false
+    @State var GoToStatistics = false
     
     var body: some View {
+               
         ZStack{
             Text("Habit Tracker")
                                 .font(.largeTitle)
@@ -29,8 +30,7 @@ struct ContentView: View {
                         if !isUserLoggedIn() {
                             LoginView()
                         } else {
-                            
-                            HabitStatisticsView()
+                            HabitListView( GoToStatisticsView: $GoToStatistics)
                             /*
                             HabitListView( GoToStatisticsView: $goToStatistics)*/
                         }
