@@ -150,7 +150,7 @@ struct HabitListView: View {
         }
         .sheet(isPresented: $showingStatistics) {
             NavigationView {
-           StatisticsView()
+           HabitStatisticsView()
                     .navigationBarItems(trailing: Button("Back") {
                         self.showingHabitDetails = false
                     })
