@@ -1,10 +1,3 @@
-//
-//  HabitDetailsView.swift
-//  HabitRabbit
-//
-//  Created by Julia Petersson  on 2023-04-19.
-//
-
 import SwiftUI
 
 import Firebase
@@ -23,84 +16,76 @@ struct HabitDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-
-            VStack{
-                HStack{
+        
+        VStack{
+            HStack{
                 
-                    TextField("Name of habit: ", text: $content)
-                        .font(.title2)
-                        .multilineTextAlignment(.center)
+                TextField("Name of habit: ", text: $content)
+                    .font(.title2)
+                    .multilineTextAlignment(.center)
+                
+                    .onChange(of: content) { newValue in
+                        if content.count > 60 {
+                            content = String(content.prefix(60))
+                        }
+                    }}
+            Spacer()
+            
+            
+            
+            
+            
+            Menu{
+                ForEach(1..<8) { number in
+                    Button(action: {timesAWeek = number}, label: {
+                        Text("\(number)")
                         
-                        .onChange(of: content) { newValue in
-                            if content.count > 60 {
-                                content = String(content.prefix(60))
-                            }
-                        }}
-                Spacer()
-                
-               
-                
-                
-                
-                Menu{
-                    ForEach(1..<8) { number in
-                        Button(action: {timesAWeek = number}, label: {
-                            Text("\(number)")
-                            
-                        })
-                    }
-                    
-                } label: {
-                    Label(title: { Text("\(timesAWeek) Times a week") }, icon: { Image(systemName: "figure.run") })
+                    })
                 }
                 
-                Section{
+            } label: {
+                Label(title: { Text("\(timesAWeek) Times a week") }, icon: { Image(systemName: "figure.run") })
+            }
+            
+            Section{
+                
+                VStack{
                     
-                        VStack{
+                    DatePicker("Daily Reminder:", selection: $today, displayedComponents: [.hourAndMinute])
+                        .padding()
+                        .foregroundColor(Color(red: 192/256, green:128/256,blue: 102/256))
+                    
+                    
+                    Button{
+                        let dateComponent = Calendar.current.dateComponents([.hour, .minute], from: today)
                         
-                            DatePicker("Daily Reminder:", selection: $today, displayedComponents: [.hourAndMinute])
-                                .padding()
-                                .foregroundColor(Color(red: 192/256, green:128/256,blue: 102/256))
-                            
-                    
-                        Button{
-                            let dateComponent = Calendar.current.dateComponents([.hour, .minute], from: today)
-                            
-                            guard let hour = dateComponent.hour, let minute = dateComponent.minute else{ return}
-                            
-                            notificationManager.createLocalNotification(title: content, hour: hour, minute: minute){
-                                error in
-                                if error == nil {
-                                    DispatchQueue.main.async {
-                                       print("saved")
-                                    }
+                        guard let hour = dateComponent.hour, let minute = dateComponent.minute else{ return}
+                        
+                        notificationManager.createLocalNotification(title: content, hour: hour, minute: minute){
+                            error in
+                            if error == nil {
+                                DispatchQueue.main.async {
+                                    print("saved")
                                 }
                             }
-                            
-                            
-                        } label:{
-                            Text("set Reminder")
-                                .fontWeight(.bold)
                         }
+                        
+                        
+                    } label:{
+                        Text("set Reminder")
+                            .fontWeight(.bold)
                     }
-                    
                 }
-                .frame(width: 240, height: 140)
-                .background(Color(red: 244/256, green:221/256,blue: 220/256))
-                .cornerRadius(15)
                 
-                    Spacer()
-        
-                }label: {
-                    Label(title: {Text("Suggestions")},
-                          icon:{Image(systemName: "")}
-                    )
-                    
-                }
-               
-                
+            }
+            .frame(width: 240, height: 140)
+            .background(Color(red: 244/256, green:221/256,blue: 220/256))
+            .cornerRadius(15)
+            
+            Spacer()
+            
         }
-            .accentColor(Color(red: 192/256, green:128/256,blue: 102/256))
+        .accentColor(Color(red: 192/256, green:128/256,blue: 102/256))
         .onAppear(perform: setContent)
         .onDisappear{notificationManager.reloadLocalNotificaitons()}
         .navigationBarTitle("Habit Detail", displayMode: .inline)
@@ -111,9 +96,9 @@ struct HabitDetailsView: View {
             {
                 
                 let date = Date()
-                let newHabit = Habit(content: content, done: false, streak: timesAWeek, dateTracker: [],currentStreak: 0,initialDate: date)
+                let newHabit = Habit(content: content, done: false, timesAWeek: timesAWeek, dateTracker: [],currentStreak: 0,initialDate: date)
                 habitList.saveHabit(habit: newHabit)
-
+                
                 
             }
             presentationMode.wrappedValue.dismiss()
@@ -121,7 +106,7 @@ struct HabitDetailsView: View {
         })
     }
     
-private func setContent() {
+    private func setContent() {
         
         if let habit = habit {
             content = habit.content
@@ -131,4 +116,5 @@ private func setContent() {
         }
         
     }
-
+    
+}
