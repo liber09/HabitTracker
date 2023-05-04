@@ -10,14 +10,15 @@ import Firebase
 
 @main
 struct HabitTrackerApp: App {
+    @StateObject var habitList = HabitsVM()
     let persistenceController = PersistenceController.shared
     init() {
             FirebaseApp.configure()
         }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            ContentView().environmentObject(habitList)
         }
     }
 }
