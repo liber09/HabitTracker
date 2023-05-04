@@ -2,17 +2,13 @@ import SwiftUI
 
 struct StatisticsView: View {
     
-    @EnvironmentObject var habitList : HabitsVIewModel
-    
+    @EnvironmentObject var habitList : HabitsVM
     
     
     var body: some View {
-        Text("En sammanställning av användarens utförda vanor för varje dag, vecka och månad.")
-      //choose a date
-        //datepicker
-        //show deeds done that date
-        
-        
+        Text("Users habit count per day, week or month")
+      
+    
         Button(action: {}){
         Text("Show Month")
         }
@@ -20,7 +16,7 @@ struct StatisticsView: View {
         Button(action: {}){
         Text("Show Week")
         }
-        //https://www.youtube.com/watch?v=EnNAQ-b1yPU
+        
     }
 }
 
