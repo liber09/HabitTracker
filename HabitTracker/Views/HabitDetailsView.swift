@@ -92,7 +92,8 @@ struct HabitDetailsView: View {
                     Spacer()
         
                 }label: {
-                    Label(title: {Text("Suggestions")}
+                    Label(title: {Text("Suggestions")},
+                          icon:{Image(systemName: "")}
                     )
                     
                 }
@@ -120,16 +121,14 @@ struct HabitDetailsView: View {
         })
     }
     
-    private func setContent() {
+private func setContent() {
         
         if let habit = habit {
             content = habit.content
             done = habit.done
             timesAWeek = habit.timesAWeek
+            
         }
         
     }
-
-
-  }
 
