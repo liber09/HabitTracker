@@ -44,18 +44,18 @@ struct SignInView : View {
 struct HabitListView: View {
     @EnvironmentObject var habitsList : HabitsVM
     @ObservedObject var notificationManager: NotificationManager
+    @StateObject private var habitList = HabitsVM()
     @State var showingHabitDetails = false
     @State var selectedHabit : Habit?
     @State var showingStatistics = false
     @State var showToggle = true
-    
     var body: some View {
         
         NavigationView{
             VStack {
                 HStack{
                     List() {
-                        ForEach(habitsList.habits) { habit in
+                        ForEach(habitList.habits) { habit in
      
                             Section{
                                 
@@ -66,8 +66,8 @@ struct HabitListView: View {
                                     HabitsToggleView(habit: habit)
                                         .onChange(of: habit.done) { _ in
                         
-                                            habitsList.streakCounter(habit: habit)
-                                            habitsList.listen2FS()
+                                            habitList.streakCounter(habit: habit)
+                                            habitList.listen2FS()
                                         }
                                     
                                 }
@@ -88,7 +88,7 @@ struct HabitListView: View {
                             indexSet in
                             for index in indexSet{
                                 
-                                habitsList.deleteHabit(index: index)
+                                habitList.deleteHabit(index: index)
                                 
                                 
                             }
@@ -158,7 +158,7 @@ struct HabitListView: View {
         }
         .accentColor(Color(red: 192/256, green:128/256,blue: 102/256))
         .onAppear(){
-            habitsList.listen2FS()
+            habitList.listen2FS()
         }
         
     }
@@ -176,7 +176,8 @@ struct ContentView_Previews: PreviewProvider {
 
 struct HabitsTextView: View {
     let habit: Habit
-    @EnvironmentObject var habitList: HabitsVM
+    @EnvironmentObject var habitsList: HabitsVM
+    @StateObject private var habitList = HabitsVM()
     
     var body: some View {
     
@@ -195,8 +196,8 @@ struct HabitsTextView: View {
 
 struct HabitsToggleView: View {
     let habit: Habit
-    
-    @EnvironmentObject var habitList: HabitsVM
+    @EnvironmentObject var habitsList: HabitsVM
+    @StateObject private var habitList = HabitsVM()
     var body: some View {
         Button(action: {
             habitList.toggle(habit: habit)

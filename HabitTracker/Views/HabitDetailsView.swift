@@ -6,13 +6,13 @@ struct HabitDetailsView: View {
     let db = Firestore.firestore()
     var habit : Habit?
     @ObservedObject var notificationManager: NotificationManager
-    @EnvironmentObject var habitList : HabitsVM
+    @EnvironmentObject var habitsList : HabitsVM
     @State var content : String = ""
-    @State var category : String = "Category"
     @State var done : Bool = false
     @State var timesAWeek : Int = 7
     @State var setReminder : Bool = true
     @State var today = Date()
+    @StateObject private var habitList = HabitsVM()
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
